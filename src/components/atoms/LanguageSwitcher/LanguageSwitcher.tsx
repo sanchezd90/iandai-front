@@ -1,12 +1,12 @@
-// components/atoms/LanguageSwitcher/LanguageSwitcher.tsx
 "use client";
 
 import React from 'react';
-import { useLanguage } from '@/app/i18n-provider';
+import { useLanguageStore } from '@/store/useLanguageStore';
 import { Button } from '@mui/material';
 
 export default function LanguageSwitcher() {
-  const { currentLanguage, setLanguage } = useLanguage();
+  const currentLanguage = useLanguageStore((state) => state.currentLanguage);
+  const setLanguage = useLanguageStore((state) => state.setLanguage);
 
   const toggleLanguage = () => {
     setLanguage(currentLanguage === 'en' ? 'es' : 'en');
