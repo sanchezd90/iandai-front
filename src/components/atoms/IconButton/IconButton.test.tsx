@@ -1,30 +1,38 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import ActionButton from './ActionButton';
+import '@testing-library/jest-dom';
+import IconButton from './IconButton';
+import { Home as HomeIcon } from '@mui/icons-material';
 
-describe('ActionButton Component', () => {
+describe('IconButton Component', () => {
     it('renders without crashing', () => {
-        render(<ActionButton onClick={() => {}} variant="close" />);
+        render(<IconButton onClick={() => {}} icon={HomeIcon} />);
         expect(screen.getByRole('button')).toBeInTheDocument();
     });
 
     it('calls onClick handler when clicked', () => {
         const handleClick = jest.fn();
-        render(<ActionButton onClick={handleClick} variant="send" />);
+        render(<IconButton onClick={handleClick} icon={HomeIcon} />);
         fireEvent.click(screen.getByRole('button'));
         expect(handleClick).toHaveBeenCalledTimes(1);
     });    
 
     it('applies the width prop correctly', () => {
-        render(<ActionButton onClick={() => {}} variant="close" width="100px" />);
+        render(<IconButton onClick={() => {}} width="100px" icon={HomeIcon} />);
         const button = screen.getByRole('button');
         expect(button).toHaveStyle('width: 100px');
     });
 
     it('applies the border and outline styles correctly', () => {
-        render(<ActionButton onClick={() => {}} variant="close" />);
+        render(<IconButton onClick={() => {}} icon={HomeIcon} />);
         const button = screen.getByRole('button');
         expect(button).toHaveStyle('border: 1px solid black');
         expect(button).toHaveStyle('outline: 2px solid black');
     });
+
+    it('renders an icon when the icon prop is provided', () => {
+        const { getByTestId } = render(<IconButton onClick={() => {}} icon={HomeIcon} />);
+        const iconElement = getByTestId('icon-button-icon');
+        expect(iconElement).toBeInTheDocument();
+    });    
 });

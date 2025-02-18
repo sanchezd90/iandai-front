@@ -9,16 +9,4 @@ describe('MessageBox Component', () => {
     render(<MessageBox message={message} sender="user" />);
     expect(screen.getByText(message)).toBeInTheDocument();
   });
-
-  it('applies correct styles for user sender', () => {
-    render(<MessageBox message="User message" sender="user" />);
-    const messageBox = screen.getByText('User message');
-    expect(messageBox).toHaveStyle('align-self: flex-end');
-  });
-
-  it('applies correct styles for other sender', () => {
-    render(<MessageBox message="Other message" sender="other" />);
-    const messageBox = screen.getByText('Other message');
-    expect(messageBox).toHaveStyle('align-self: flex-start');
-  });
 });

@@ -9,9 +9,7 @@ interface MessageBoxProps {
 
 const StyledMessageBox = styled(Paper)<{ sender: 'user' | 'other' }>(({ theme, sender }) => ({
   padding: theme.spacing(2),
-  margin: theme.spacing(1),
-  maxWidth: '60%',
-  alignSelf: sender === 'user' ? 'flex-end' : 'flex-start',
+  margin: theme.spacing(1),  
   backgroundColor: sender === 'user' ? theme.palette.primary.main : theme.palette.grey[300],
   color: sender === 'user' ? theme.palette.primary.contrastText : theme.palette.text.primary,
 }));
