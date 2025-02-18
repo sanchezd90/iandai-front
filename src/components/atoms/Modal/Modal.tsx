@@ -4,9 +4,10 @@ interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
     children: React.ReactNode;
+    closeButton?: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, closeButton }) => {
     if (!isOpen) return null;
 
     const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -18,9 +19,11 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
     return (
         <div className="modal-overlay" onClick={handleOverlayClick}>
             <div className="modal-content">
-                <button className="modal-close-button" onClick={onClose}>
-                    &times;
-                </button>
+                {closeButton ? closeButton : (
+                    <button className="modal-close-button" onClick={onClose}>
+                        X
+                    </button>
+                )}
                 {children}
             </div>
         </div>

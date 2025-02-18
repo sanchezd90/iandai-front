@@ -19,7 +19,7 @@ const StyledIconButton = styled(MuiIconButton)<{ width?: string }>(({ width }) =
 
 const IconButton: React.FC<IconButtonProps> = ({ onClick, width, icon: Icon }) => {
     return (
-        <StyledIconButton onClick={onClick} width={width}>
+        <StyledIconButton onClick={onClick} width={width} data-testid="icon-button">
             <Icon data-testid="icon-button-icon" />
         </StyledIconButton>
     );
