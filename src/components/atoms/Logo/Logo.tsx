@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface LogoProps {
     src: string;
@@ -9,7 +10,7 @@ interface LogoProps {
 
 const Logo: React.FC<LogoProps> = ({ src, alt, width = 50, height = 50 }) => {
     return (
-        <img src={src} alt={alt} width={width} height={height} />
+        <Image src={src} alt={alt} width={width} height={height} />
     );
 };
 

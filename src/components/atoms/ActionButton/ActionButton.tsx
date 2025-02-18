@@ -4,20 +4,23 @@ import { styled } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
 
-interface ActionButtonProps {
-    onClick: () => void;
-    size?: 'small' | 'medium' | 'large';
-    color?: 'default' | 'inherit' | 'primary' | 'secondary';
+interface ActionButtonProps {      
     variant: 'close' | 'send';
+    onClick: () => void;
+    width?: string;
 }
 
-const StyledIconButton = styled(IconButton)(({ theme }) => ({
+const StyledIconButton = styled(IconButton)<{ width?: string }>(({ width }) => ({
     borderRadius: '50%',   
+    width: width || 'auto',
+    backgroundColor: 'transparent',
+    border: '1px solid black',
+    outline: '2px solid black',
 }));
 
-const ActionButton: React.FC<ActionButtonProps> = ({ onClick, size = 'medium', color = 'default', variant }) => {
+const ActionButton: React.FC<ActionButtonProps> = ({ variant, onClick, width }) => {
     return (
-        <StyledIconButton onClick={onClick} size={size} color={color}>
+        <StyledIconButton onClick={onClick} width={width}>
             {variant === 'close' ? <CloseIcon /> : <SendIcon />}
         </StyledIconButton>
     );

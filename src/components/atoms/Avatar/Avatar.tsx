@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 
 interface AvatarProps {
-    initials: string;
+    initials?: string;
     size?: number;
     backgroundColor?: string;
     textColor?: string;
@@ -23,7 +23,7 @@ const StyledAvatar = styled('div')<AvatarProps>(({ size, backgroundColor, textCo
 const Avatar: React.FC<AvatarProps> = ({ initials, size, backgroundColor, textColor }) => {
     return (
         <StyledAvatar size={size} backgroundColor={backgroundColor} textColor={textColor}>
-            {initials}
+            {initials || ''}
         </StyledAvatar>
     );
 };

@@ -6,9 +6,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { I18nProvider } from './i18n-provider';
 
-const theme = createTheme({
-  // your theme configuration
-});
+const theme = createTheme({});
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
