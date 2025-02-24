@@ -15,6 +15,7 @@ describe('CustomButton Component', () => {
     const button = screen.getByText('Primary');
     expect(button).toHaveStyle(`background-color: ${theme.palette.primary.dark}`);
     expect(button).toHaveStyle(`color: ${theme.palette.common.white}`);
+    expect(button).toHaveStyle(`box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25)`);
   });
 
   it('applies the correct styles for the secondary variant', () => {
@@ -23,6 +24,7 @@ describe('CustomButton Component', () => {
     expect(button).toHaveStyle(`background-color: rgba(0, 0, 0, 0.1)`);
     expect(button).toHaveStyle(`color: ${theme.palette.primary.main}`);
     expect(button).toHaveStyle(`border: 2px solid ${theme.palette.primary.main}`);
+    expect(button).toHaveStyle(`box-shadow: none`);
   });
 
   it('calls the onClick handler when clicked', () => {

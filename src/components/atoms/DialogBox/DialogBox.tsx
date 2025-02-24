@@ -1,21 +1,27 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import theme from '../../../app/theme';
 
 interface MessageBoxProps {
   message: string;
-  sender: 'user' | 'other';
+  sender: 'user' | 'system';
 }
 
-const StyledMessageBox = styled(Paper)<{ sender: 'user' | 'other' }>(({ theme, sender }) => ({
-  padding: theme.spacing(2),
-  margin: theme.spacing(1),  
-  backgroundColor: sender === 'user' ? theme.palette.primary.main : theme.palette.grey[300],
-  color: sender === 'user' ? theme.palette.primary.contrastText : theme.palette.text.primary,
+const StyledMessageBox = styled(Paper)<{ sender: 'user' | 'system' }>(({ sender }) => ({
+  padding: 16,   
+  backgroundColor: sender === 'user' ? theme.palette.secondary.dark : theme.palette.primary.light,
+  color: theme.palette.common.black,
+  boxShadow: 'none',
+  borderRadius: 12,
+  fontSize: 16,  
+  lineHeight: 1.5,
+  letterSpacing: 0.15,
+  textAlign: 'left',
 }));
 
 const MessageBox: React.FC<MessageBoxProps> = ({ message, sender }) => {
-  return <StyledMessageBox sender={sender}>{message}</StyledMessageBox>;
+  return <StyledMessageBox data-testid="message-box" sender={sender}>{message}</StyledMessageBox>;
 };
 
 export default MessageBox;

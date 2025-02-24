@@ -1,17 +1,13 @@
 'use client';
 import React from 'react';
-import { Menu, MenuItem, Button } from '@mui/material';
-import { styled } from '@mui/system';
+import CustomButton from '../../atoms/Button/Button';
+import {CustomMenu} from '../../atoms/Menu/Menu';
 
 interface DropdownMenuProps {
     options: string[];
     onSelect: (option: string) => void;
     buttonLabel: string;
 }
-
-const StyledButton = styled(Button)({
-
-});
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, onSelect, buttonLabel }) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -31,20 +27,13 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ options, onSelect, buttonLa
 
     return (
         <>
-            <StyledButton onClick={handleClick}>
-                {buttonLabel}
-            </StyledButton>
-            <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-            >
-                {options.map((option) => (
-                    <MenuItem key={option} onClick={() => handleSelect(option)}>
-                        {option}
-                    </MenuItem>
-                ))}
-            </Menu>
+            <CustomButton label={buttonLabel} onClick={handleClick} variant="secondary" />
+            <CustomMenu
+                anchorEl={anchorEl}                
+                options={options}
+                handleSelect={handleSelect}
+                handleClose={handleClose}
+            />
         </>
     );
 };
