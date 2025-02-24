@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import CustomButton from './Button';
+import theme from '../../../app/theme';
 
 describe('CustomButton Component', () => {
   it('renders the button with the correct label', () => {
@@ -12,16 +13,16 @@ describe('CustomButton Component', () => {
   it('applies the correct styles for the primary variant', () => {
     render(<CustomButton label="Primary" onClick={() => {}} variant="primary" />);
     const button = screen.getByText('Primary');
-    expect(button).toHaveStyle('background-color: #333');
-    expect(button).toHaveStyle('color: #fff');
+    expect(button).toHaveStyle(`background-color: ${theme.palette.primary.dark}`);
+    expect(button).toHaveStyle(`color: ${theme.palette.common.white}`);
   });
 
   it('applies the correct styles for the secondary variant', () => {
     render(<CustomButton label="Secondary" onClick={() => {}} variant="secondary" />);
     const button = screen.getByText('Secondary');
-    expect(button).toHaveStyle('background-color: rgba(0, 0, 0, 0.1)');
-    expect(button).toHaveStyle('color: #000');
-    expect(button).toHaveStyle('border: 2px solid #000');
+    expect(button).toHaveStyle(`background-color: rgba(0, 0, 0, 0.1)`);
+    expect(button).toHaveStyle(`color: ${theme.palette.primary.main}`);
+    expect(button).toHaveStyle(`border: 2px solid ${theme.palette.primary.main}`);
   });
 
   it('calls the onClick handler when clicked', () => {
@@ -29,5 +30,13 @@ describe('CustomButton Component', () => {
     render(<CustomButton label="Click Me" onClick={handleClick} variant="primary" />);
     fireEvent.click(screen.getByText('Click Me'));
     expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not allow the button label to exceed 33 characters', () => {
+    const longLabel = 'This label is definitely more than thirty characters long';
+    render(<CustomButton label={longLabel} onClick={() => {}} variant="primary" />);
+    const button = screen.getByText('This label is definitely more ...');
+    expect(button).toBeInTheDocument();
+    expect(button.textContent?.length).toBeLessThanOrEqual(33);
   });
 });

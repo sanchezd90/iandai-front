@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
-
+import theme from '../../../app/theme';
 interface CustomButtonProps {
   label: string;
   onClick: () => void;
@@ -10,22 +10,25 @@ interface CustomButtonProps {
 
 const StyledButton = styled(Button)<{ customvariant: 'primary' | 'secondary' }>(
   ({ customvariant }) => ({
-    backgroundColor: customvariant === 'primary' ? '#000' : 'transparent',
-    color: customvariant === 'primary' ? '#fff' : '#000',
+    backgroundColor: customvariant === 'primary' ? theme.palette.primary.main : 'transparent',
+    color: customvariant === 'primary' ? theme.palette.common.white : theme.palette.primary.main,
     padding: '10px 20px',
     borderRadius: '20px',
     boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.25)',
-    border: customvariant === 'secondary' ? '2px solid #000' : 'none',
+    border: customvariant === 'secondary' ? `2px solid ${theme.palette.primary.main}` : 'none',
     '&:hover': {
-      backgroundColor: customvariant === 'primary' ? '#333' : 'rgba(0, 0, 0, 0.1)',
+      backgroundColor: customvariant === 'primary' ? theme.palette.primary.dark : 'rgba(0, 0, 0, 0.1)',
     },
   })
 );
 
 const CustomButton: React.FC<CustomButtonProps> = ({ label, onClick, variant }) => {
+  // Truncate the label to 30 characters
+  const truncatedLabel = label.length > 30 ? `${label.substring(0, 30)}...` : label;
+
   return (
     <StyledButton onClick={onClick} customvariant={variant}>
-      {label}
+      {truncatedLabel}
     </StyledButton>
   );
 };

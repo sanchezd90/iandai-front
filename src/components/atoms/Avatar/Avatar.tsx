@@ -22,7 +22,7 @@ const StyledAvatar = styled('div')<AvatarProps>(({ size, backgroundColor, textCo
 }));
 
 const Avatar: React.FC<AvatarProps> = ({ initials, size, backgroundColor, textColor }) => {
-    const displayInitials = initials ? initials.slice(0, 2) : '';
+    const displayInitials = initials ? initials.slice(0, 2) : 'ME';
     return (
         <StyledAvatar size={size} backgroundColor={backgroundColor} textColor={textColor}>
             {displayInitials}

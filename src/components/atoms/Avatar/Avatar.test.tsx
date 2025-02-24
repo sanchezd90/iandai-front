@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Avatar from './Avatar';
+import theme from '../../../app/theme';
 
 describe('Avatar Component', () => {
     it('renders with default props', () => {
@@ -9,8 +10,8 @@ describe('Avatar Component', () => {
         expect(avatarElement).toBeInTheDocument();
         expect(avatarElement).toHaveStyle('width: 80px');
         expect(avatarElement).toHaveStyle('height: 80px');
-        expect(avatarElement).toHaveStyle('background-color: #000000');
-        expect(avatarElement).toHaveStyle('color: #ffffff');
+        expect(avatarElement).toHaveStyle(`background-color: ${theme.palette.primary.main}`);
+        expect(avatarElement).toHaveStyle(`color: ${theme.palette.common.white}`);
     });
 
     it('renders with custom size', () => {
@@ -32,5 +33,10 @@ describe('Avatar Component', () => {
         const { getByText } = render(<Avatar initials="GHIJK" />);
         const avatarElement = getByText('GH');
         expect(avatarElement).toBeInTheDocument();
+    });
+
+    it('renders with no initials', () => {
+        const { container } = render(<Avatar />);
+        expect(container.textContent).toBe('ME');
     });
 });
