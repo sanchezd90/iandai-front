@@ -7,10 +7,10 @@ describe('Avatar Component', () => {
         const { getByText } = render(<Avatar initials="AB" />);
         const avatarElement = getByText('AB');
         expect(avatarElement).toBeInTheDocument();
-        expect(avatarElement).toHaveStyle('width: 40px');
-        expect(avatarElement).toHaveStyle('height: 40px');
-        expect(avatarElement).toHaveStyle('background-color: #3f51b5');
-        expect(avatarElement).toHaveStyle('color: #fff');
+        expect(avatarElement).toHaveStyle('width: 80px');
+        expect(avatarElement).toHaveStyle('height: 80px');
+        expect(avatarElement).toHaveStyle('background-color: #000000');
+        expect(avatarElement).toHaveStyle('color: #ffffff');
     });
 
     it('renders with custom size', () => {
@@ -26,5 +26,11 @@ describe('Avatar Component', () => {
         const avatarElement = getByText('EF');
         expect(avatarElement).toHaveStyle('background-color: #ff5722');
         expect(avatarElement).toHaveStyle('color: #000');
+    });
+
+    it('renders with initials truncated to max two characters', () => {
+        const { getByText } = render(<Avatar initials="GHIJK" />);
+        const avatarElement = getByText('GH');
+        expect(avatarElement).toBeInTheDocument();
     });
 });
