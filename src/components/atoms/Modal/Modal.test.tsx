@@ -1,84 +1,54 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import Modal from './Modal';
-import IconButton from '../../atoms/IconButton/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import * as React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import Modal from "./Modal";
 
-describe('Modal Component', () => {
-    it('should not render when isOpen is false', () => {
-        const { queryByText } = render(
-            <Modal isOpen={false} onClose={() => {}}>
-                <div>Modal Content</div>
-            </Modal>
-        );
-        expect(queryByText('Modal Content')).toBeNull();
-    });
+describe("Modal Component", () => {
+  const defaultProps = {
+    open: true,
+    title: "Test Title",
+    description: "Test Description",
+    onClose: jest.fn(),
+    onConfirm: jest.fn(),
+    confirmText: "Confirm",
+    cancelText: "Cancel",
+  };
 
-    it('should render when isOpen is true', () => {
-        const { getByText } = render(
-            <Modal isOpen={true} onClose={() => {}}>
-                <div>Modal Content</div>
-            </Modal>
-        );
-        expect(getByText('Modal Content')).toBeInTheDocument();
-    });
+  it("renders the modal with the correct title and description", () => {
+    render(<Modal {...defaultProps} />);
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Description")).toBeInTheDocument();
+  });
 
-    it('should call onClose when close button is clicked', () => {
-        const onCloseMock = jest.fn();
-        const { getByText } = render(
-            <Modal isOpen={true} onClose={onCloseMock}>
-                <div>Modal Content</div>
-            </Modal>
-        );
-        fireEvent.click(getByText('X'));
-        expect(onCloseMock).toHaveBeenCalledTimes(1);
-    });
+  it("calls onClose when the close button is clicked", () => {
+    render(<Modal {...defaultProps} />);
+    fireEvent.click(screen.getByLabelText("close"));
+    expect(defaultProps.onClose).toHaveBeenCalled();
+  });
 
-    it('should call onClose when clicking on the overlay', () => {
-        const onCloseMock = jest.fn();
-        const { getByText } = render(
-            <Modal isOpen={true} onClose={onCloseMock}>
-                <div>Modal Content</div>
-            </Modal>
-        );
-        fireEvent.click(getByText('Modal Content').parentElement!.parentElement!);
-        expect(onCloseMock).toHaveBeenCalledTimes(1);
-    });
+  it("calls onClose when the cancel button is clicked", () => {
+    render(<Modal {...defaultProps} />);
+    fireEvent.click(screen.getByText("Cancel"));
+    expect(defaultProps.onClose).toHaveBeenCalled();
+  });
 
-    it('should not call onClose when clicking inside the modal content', () => {
-        const onCloseMock = jest.fn();
-        const { getByText } = render(
-            <Modal isOpen={true} onClose={onCloseMock}>
-                <div>Modal Content</div>
-            </Modal>
-        );
-        fireEvent.click(getByText('Modal Content'));
-        expect(onCloseMock).not.toHaveBeenCalled();
-    });
+  it("calls onConfirm when the confirm button is clicked", () => {
+    render(<Modal {...defaultProps} />);
+    fireEvent.click(screen.getByText("Confirm"));
+    expect(defaultProps.onConfirm).toHaveBeenCalled();
+  });
 
-    it('should render the custom closeButton when provided', () => {
-        const { getByTestId } = render(
-            <Modal 
-                isOpen={true} 
-                onClose={() => {}} 
-                closeButton={<IconButton onClick={() => {}} icon={CloseIcon} />}
-            >
-                <div>Modal Content</div>
-            </Modal>
-        );
-        expect(getByTestId('icon-button')).toBeInTheDocument();
-    });
+  it("does not render the confirm button if onConfirm is not provided", () => {
+    const { queryByText } = render(<Modal {...defaultProps} onConfirm={undefined} />);
+    expect(queryByText("Confirm")).toBeNull();
+  });
 
-    it('should render the default close button when no custom button is provided', () => {
-        const { getByText } = render(
-            <Modal 
-                isOpen={true} 
-                onClose={() => {}} 
-            >
-                <div>Modal Content</div>
-            </Modal>
-        );
-        expect(getByText('X')).toBeInTheDocument();
-    });
+  it("renders the confirm button with default text", () => {
+    render(<Modal {...defaultProps} confirmText={undefined} />);
+    expect(screen.getByText("agree")).toBeInTheDocument();
+  });
+
+  it("renders the cancel button with default text", () => {
+    render(<Modal {...defaultProps} cancelText={undefined} />);
+    expect(screen.getByText("disagree")).toBeInTheDocument();
+  });
 });

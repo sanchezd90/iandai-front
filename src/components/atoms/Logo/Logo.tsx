@@ -1,16 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
+import LogoWords from '/public/logo-words.svg';
+import LogoSolid from '/public/logo-solid.svg';
 
-interface LogoProps {
-    src: string;
-    alt: string;
-    width?: number;
-    height?: number;
+interface LogoProps {        
+    variant?: 'words' | 'solid';
 }
 
-const Logo: React.FC<LogoProps> = ({ src, alt, width = 50, height = 50 }) => {
+const Logo: React.FC<LogoProps> = ({ variant = 'words' }) => {
     return (
-        <Image src={src} alt={alt} width={width} height={height} />
+        <Image src={variant === 'words' ? LogoWords : LogoSolid} alt={`IANDAI ${variant} logo`} />
     );
 };
 

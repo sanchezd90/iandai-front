@@ -5,22 +5,24 @@ import { SvgIconProps } from '@mui/material/SvgIcon';
 
 interface IconButtonProps {          
     onClick: () => void;
-    width?: string;
+    width?: number;
     icon: React.ComponentType<SvgIconProps>;
+    color?: string;
 }
 
-const StyledIconButton = styled(MuiIconButton)<{ width?: string }>(({ width }) => ({
+const StyledIconButton = styled(MuiIconButton)<{ width?: number, customcolor?: string }>(({ width, customcolor }) => ({
     borderRadius: '50%',   
-    width: width || 'auto',
+    width: `${width}px`,
+    height: `${width}px`,
     backgroundColor: 'transparent',
-    border: '1px solid black',
-    outline: '2px solid black',
+    border: `1px solid ${customcolor || 'black'}`,
+    outline: `2px solid ${customcolor || 'black'}`,
 }));
 
-const IconButton: React.FC<IconButtonProps> = ({ onClick, width, icon: Icon }) => {
-    return (
-        <StyledIconButton onClick={onClick} width={width} data-testid="icon-button">
-            <Icon data-testid="icon-button-icon" />
+const IconButton: React.FC<IconButtonProps> = ({ onClick, width=40, icon: Icon, color }) => {
+    return (    
+        <StyledIconButton onClick={onClick} width={width} data-testid="icon-button" customcolor={color}>
+            <Icon data-testid="icon-button-icon" sx={{ color: color || 'black', fontSize: `${width/2}px` }}/>
         </StyledIconButton>
     );
 };

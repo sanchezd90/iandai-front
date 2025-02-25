@@ -1,33 +1,91 @@
-import React from 'react';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import theme from "../../../app/theme";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface ModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    children: React.ReactNode;
-    closeButton?: React.ReactNode;
+  open: boolean;
+  title: string;
+  description: string;
+  onClose: () => void;
+  onConfirm?: () => void;
+  confirmText?: string;
+  cancelText?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, closeButton }) => {
-    if (!isOpen) return null;
+const Modal: React.FC<ModalProps> = ({
+  open,
+  title,
+  description,
+  onClose,
+  onConfirm,
+  confirmText = "agree",
+  cancelText = "disagree",
+}) => {
 
-    const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (e.target === e.currentTarget) {
-            onClose();
+  return (
+    <Dialog
+      open={open}
+      onClose={onClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+      slotProps={{
+        paper: {
+          sx: { width: '90vw', maxWidth: '768px' }
         }
-    };
-
-    return (
-        <div className="modal-overlay" onClick={handleOverlayClick}>
-            <div className="modal-content">
-                {closeButton ? closeButton : (
-                    <button className="modal-close-button" onClick={onClose}>
-                        X
-                    </button>
-                )}
-                {children}
-            </div>
-        </div>
-    );
+      }}
+    >
+      <DialogTitle sx={{ m: 0 }} id="alert-dialog-title">
+        {title}
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: theme.palette.primary.main,
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          {description}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button 
+          onClick={onClose} 
+          sx={{ 
+            color: theme.palette.primary.main,
+            fontWeight: 700 
+          }}
+        >
+          {cancelText}
+        </Button>
+        {onConfirm && (
+          <Button 
+            onClick={onConfirm} 
+            autoFocus 
+            sx={{ 
+              color: theme.palette.primary.main,
+              fontWeight: 700 
+            }}
+          >
+            {confirmText}
+          </Button>
+        )}
+      </DialogActions>
+    </Dialog>
+  );
 };
 
 export default Modal;
