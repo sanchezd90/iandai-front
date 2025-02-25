@@ -20,13 +20,13 @@ const TextInput: React.FC<TextInputProps> = ({ variant, label, value, onChange, 
             variant="outlined"
             fullWidth
             sx={{
-                color: theme.palette.primary.main,
+                color: 'theme.palette.primary.main',
                 '& .MuiOutlinedInput-notchedOutline.MuiOutlinedInput-notchedOutline': {
                     borderColor: theme.palette.primary.main,
                 },
-                '& .MuiInputLabel-root.Mui-focused': {
+                '& .MuiInputLabel-root': {
                     color: theme.palette.primary.main,
-                },
+                }
             }}
         />
     );

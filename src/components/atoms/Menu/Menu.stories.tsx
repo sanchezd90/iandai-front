@@ -10,6 +10,10 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+const anchorElement = document.createElement('div');
+anchorElement.id = 'menu-anchor';
+document.body.appendChild(anchorElement);
+
 export const Default: Story = {
   args: {
     anchorEl: document.getElementById('menu-anchor'),
@@ -19,6 +23,3 @@ export const Default: Story = {
   }
 };
 
-const anchorElement = document.createElement('div');
-anchorElement.id = 'menu-anchor';
-document.body.appendChild(anchorElement);
