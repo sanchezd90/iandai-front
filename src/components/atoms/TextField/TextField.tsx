@@ -1,6 +1,6 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-
+import theme from '@/app/theme';
 interface TextInputProps {
     variant: 'single-line' | 'multi-line';
     label: string;
@@ -19,6 +19,15 @@ const TextInput: React.FC<TextInputProps> = ({ variant, label, value, onChange, 
             rows={variant === 'multi-line' ? rows : undefined}
             variant="outlined"
             fullWidth
+            sx={{
+                color: theme.palette.primary.main,
+                '& .MuiOutlinedInput-notchedOutline.MuiOutlinedInput-notchedOutline': {
+                    borderColor: theme.palette.primary.main,
+                },
+                '& .MuiInputLabel-root.Mui-focused': {
+                    color: theme.palette.primary.main,
+                },
+            }}
         />
     );
 };

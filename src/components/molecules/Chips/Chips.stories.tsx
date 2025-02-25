@@ -12,8 +12,19 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    labels: ['label1', 'label2', 'label3', 'label4', 'label5', 'label6', 'label7', 'label8', 'label9', 'label10'],
+    options: [
+      { label: 'label1', value: 'label1' },
+      { label: 'label2', value: 'label2' },
+      { label: 'label3', value: 'label3' },
+      { label: 'label4', value: 'label4' },
+      { label: 'label5', value: 'label5' },
+      { label: 'label6', value: 'label6' },
+      { label: 'label7', value: 'label7' },
+      { label: 'label8', value: 'label8' },
+      { label: 'label9', value: 'label9' },
+      { label: 'label10', value: 'label10' },
+    ],
     onClick: () => {},
-    selectedLabel: "label2"
+    selectedValue: "label4"
   }
 };

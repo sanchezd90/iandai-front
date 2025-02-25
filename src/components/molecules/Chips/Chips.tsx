@@ -4,12 +4,12 @@ import Stack from '@mui/material/Stack';
 import theme from '@/app/theme';
 
 interface ChipsProps {    
-  labels: string[];
-  onClick: (label: string) => void;
-  selectedLabel: string;
+  options: { label: string; value: string }[];
+  onClick: (value: string) => void;
+  selectedValue: string;
 }
 
-export default function Chips({ labels, onClick, selectedLabel }: ChipsProps) {
+export default function Chips({ options, onClick, selectedValue }: ChipsProps) {
   return (
     <Stack
       direction="row"
@@ -19,13 +19,13 @@ export default function Chips({ labels, onClick, selectedLabel }: ChipsProps) {
       justifyContent="flex-start"
       alignItems="center"
     >
-      {labels.map((label) => (
+      {options.map((option) => (
         <Chip
-          key={label}
-          label={label}
-          variant={selectedLabel === label ? 'filled' : 'outlined'}
-          onClick={() => onClick(label)}
-          sx={selectedLabel === label ? { backgroundColor: theme.palette.primary.main, color: theme.palette.common.white } : {}}
+          key={option.value}
+          label={option.label}
+          variant={selectedValue === option.value ? 'filled' : 'outlined'}
+          onClick={() => onClick(option.value)}
+          sx={selectedValue === option.value ? { backgroundColor: theme.palette.primary.main, color: theme.palette.common.white } : {}}
         />
       ))}
     </Stack>
